@@ -1,0 +1,39 @@
+@mixin list-item{
+    padding: 30px;
+    border: 1px solid $accent-50;
+    border-radius: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    &:nth-child(4n-2){
+        background-color: $accent-10;
+        border: 1px solid transparent;
+      }  
+    @media (hover:hover) {
+        &:hover {
+        transform: scale(1.01);
+          box-shadow: 0 0 20px $accent,
+          inset 0 0 15px $accent-10;
+        }
+      }
+      @media ($media-phone) {
+        &__title{
+          font-size: 16px;
+        }
+      }
+      &__title {
+        font-style: normal;
+        font-weight: 700;
+        line-height: 23px;
+        color: $text;
+    
+      }
+      &__description {
+        font-style: normal;
+        height: 100px;
+        margin-top: 8px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: $alt-text;
+      } 
+      
+}

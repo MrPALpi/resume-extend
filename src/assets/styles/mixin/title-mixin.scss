@@ -1,0 +1,12 @@
+@mixin title-mixin{
+    color: #FFF;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    margin-top: 28px;
+    @media ($media-phone){
+        font-size: 24px;
+        margin-top:16px;
+    } 
+}
