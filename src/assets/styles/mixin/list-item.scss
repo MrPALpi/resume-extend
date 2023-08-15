@@ -9,7 +9,7 @@
       }  
     @media (hover:hover) {
         &:hover {
-        transform: scale(1.01);
+        transform: scale(1.01) translateY(-2%);
           box-shadow: 0 0 20px $accent,
           inset 0 0 15px $accent-10;
         }

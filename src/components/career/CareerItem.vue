@@ -46,6 +46,7 @@ const getDate = () =>{
     @include list-item;
     width: 100%;
     min-width: 300px;
+    
     &__description{
         max-height: 80px;
         @media($media-phone) {

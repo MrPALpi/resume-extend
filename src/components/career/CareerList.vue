@@ -16,8 +16,6 @@ const props = defineProps({
     display: flex;
     flex-direction: column;
     gap: 64px;
-    max-width: 580px;
-    min-width: 300px;
-    width: 100%;
+   
 }
 </style>

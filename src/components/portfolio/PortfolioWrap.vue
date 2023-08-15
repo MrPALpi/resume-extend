@@ -5,13 +5,18 @@
     :windowSize="windowSize"
     class="portfolio-carusel"
   />
-
-  <mobile-carusel v-else>
+  <div v-else>
+  <mobile-carusel-btns :objFunction="mobileCarusel"/>
+  <mobile-carusel  ref="mobileCarusel">
     <portfolio-item
       v-for="item in portfolioList"
       :key="item"
       :portfolioItem="item"
   /></mobile-carusel>
+  </div>
+  
+  
+  
 
 </template>
 
@@ -19,7 +24,13 @@
 import PortfolioItem from "./PortfolioItem.vue";
 import PortfolioCarusel from "./PortfolioCarusel.vue";
 import MobileCarusel from "../carusel/MobileCarusel.vue";
+import MobileCaruselBtns from "../carusel/MobileCaruselBtns.vue";
 import useWindowSize from '../../hooks/useWindowSize.js';
+import { ref, onMounted } from 'vue';
+
+const mobileCarusel = ref(null);
+
+
 const props = defineProps({
   portfolioList: { type: Array, required: true },
 });

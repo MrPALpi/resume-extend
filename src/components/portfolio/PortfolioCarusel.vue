@@ -3,7 +3,7 @@
     <arrow-to
       @click="prevSlide"
       :class="{ 'portfolio-carusel__btn_disabled': numberChunk === 0 }"
-      class="portfolio-carusel__btn portfolio-carusel__btn__left"
+      class="portfolio-carusel__btn portfolio-carusel__btn_left"
     />
 
     <div class="portfolio-carusel__carusel" :style="transform">
@@ -17,7 +17,7 @@
     <arrow-to
       @click="nextSlide"
       :class="{ 'portfolio-carusel__btn_disabled': numberChunk === length }"
-      class="portfolio-carusel__btn portfolio-carusel__btn__right"
+      class="portfolio-carusel__btn portfolio-carusel__btn_right"
     />
   </div>
 </template>
@@ -99,18 +99,18 @@ const transform = computed(() => {
     cursor: pointer;
     z-index: 2;
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 100%;
-    top: calc(50% - 25px);
+    top: calc(50% - 20px);
     background: $accent-50;
     transition: opacity 0.3s ease 0.5s;
 
-    &__left {
+    &_left {
       left: 0;
       transform: rotate(180deg);
     }
-    &__right {
+    &_right {
       right: 0;
     }
     &_disabled {

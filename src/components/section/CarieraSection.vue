@@ -20,11 +20,13 @@ const props = defineProps({
 <style lang="scss" scoped>
 @import "../../assets/styles/main.scss";
 @import "../../assets/styles/mixin/title-mixin.scss";
+@import '@/assets/styles/mixin/element-show.scss';
 .career{
     margin-top: 145px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    @include element-show;
     @media ($media-phone){
         margin-top: 80px;
         align-items: flex-start;

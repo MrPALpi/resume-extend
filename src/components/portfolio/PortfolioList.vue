@@ -19,6 +19,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .portfolio__list{
     display: flex;
     flex-wrap:wrap;

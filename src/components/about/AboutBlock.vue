@@ -6,7 +6,7 @@
     <span class="about__title">
       <slot name="title"> </slot>
     </span>
-    <div class="about__description">
+    <div class="about__description" >
       <slot name="description"> </slot>
     </div>
     <span class="about__footer">

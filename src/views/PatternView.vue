@@ -1,17 +1,17 @@
 <template>
   <!-- приветсвенная секция -->
-  <welcome-section :user="userWelcome" />
+  <welcome-section :user="userWelcome"  v-observe="{class:'welcome-wrap'}"/>
   <!-- /приветсвенная секция -->
 
   <!-- Описание -->
-    <description-section :user="userDescription"/>
+    <description-section :user="userDescription" v-observe="{class:'description'}"/>
   <!-- /Описание -->
 
   <!-- Портфолио -->
-    <portfolio-section :portfolio="user.portfolio"/>
+    <portfolio-section :portfolio="user.portfolio" v-observe="{class:'portfolio'}"/>
   <!-- /Портфолио -->
   <!-- Карьера -->
-  <cariera-section :career="user.career" :achievements="user.achievements"/>
+  <cariera-section :career="user.career" :achievements="user.achievements" v-observe="{class:'career'}"/>
   <!-- /Карьера -->
 </template>
 
@@ -153,6 +153,7 @@ export default {
         secondName: user.secondName,
         greeting: user.greeting,
         avatarPrew: user.avatarPrew,
+        messengers: user.messengers,
       };
     });
     const userDescription = computed(() => {

@@ -5,11 +5,13 @@
       :src="props.img"
       alt=""
     />
+    <div class="img-blur__wrap">
     <img
       class="img-blur__img"
       :src="props.img"
       alt=""
     />
+  </div>
   </div>
 </template>
 
@@ -28,14 +30,29 @@ const props = defineProps({
       width: 100%;
       position: relative;
       @include circle-img;
+      transition: transform 0.4s ease;
     }
     &__shadow {
       position: absolute;
       width: 100%;
+      
       -webkit-filter: blur(25px);
       filter: blur(25px);
       @include circle-img;
+      transition: transform 0.4s ease;
     }
+    &__wrap{
+      border-radius: 100%;
+      overflow: hidden;
+    }
+    @media(hover:hover){
+        &:hover{
+          .img-blur__img, .img-blur__shadow{
+            transform: scale(1.05);
+          }
+      }
+    }
+    
 }
 
 </style>
