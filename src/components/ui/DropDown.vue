@@ -1,41 +1,51 @@
 <template>
-  <div class="drop-down" >
-    <div @click="showChoice" class="drop-down__menu drop-down-menu">
-      <span  class="drop-down-menu__placeholder">Выберите</span>
-      <animate-arrow  class="drop-down-menu__arrow" :active="show" />
+  <div @blur="toggleChoice" ref="select" class="drop-down" tabindex="-1">
+    <div @mousedown="triggerChoice" class="drop-down__menu drop-down-menu">
+      <span class="drop-down-menu__placeholder">Выберите</span>
+      <animate-arrow class="drop-down-menu__arrow" :active="show" />
     </div>
-    <drop-down-choice :show="show" >
-      <template #input>
-          <input 
-       type="text"
-      @input="$emit('update:inputValue', $event.target.value)"
-      :value="props.inputValue"
-      placeholder="Поиск..."
-      class="drop-down__input">
-      </template>
-      <slot></slot>
-    </drop-down-choice>
+
+    <div @focusin="toggleChoice" @focusout="hideChoice" tabindex="-1">
+      <drop-down-choice :show="show">
+        <template #input>
+          <input
+            type="text"
+            @input="$emit('update:inputValue', $event.target.value)"
+            :value="props.inputValue"
+            placeholder="Поиск..."
+            class="drop-down__input"
+          />
+        </template>
+        <slot></slot>
+      </drop-down-choice>
+    </div>
   </div>
 </template>
 
 <script setup>
-
 import { ref } from "vue";
 import AnimateArrow from "./AnimateArrow.vue";
-import DropDownChoice from './DropDownChoice.vue'
+import DropDownChoice from "./DropDownChoice.vue";
 const show = ref(false);
-const showChoice = (event) => {
-  show.value = !show.value; 
-
+const select = ref(null);
+const hideChoice = () => {
+  show.value=false;
+  // show.value = !show.value;
 };
-
+const toggleChoice = () => {
+  show.value = !show.value;
+};
+const triggerChoice = () => {
+  console.log(event);
+  if (show.value) {
+    select.value.dispatchEvent(new Event("blur"));
+  } else {
+    show.value = true;
+  }
+};
 const props = defineProps({
-  inputValue: { type: String,
-    required: false,
-  },
+  inputValue: { type: String, required: false },
 });
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -60,9 +70,8 @@ const props = defineProps({
   &-menu {
     &__arrow {
       width: 30px;
-     
     }
-    &__placeholder{
+    &__placeholder {
       color: $text;
     }
   }

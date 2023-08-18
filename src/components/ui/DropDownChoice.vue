@@ -1,4 +1,5 @@
 <template>
+  <input type="hidden">
   <Transition name="fade">
        <div
          ref="choice"
@@ -55,7 +56,7 @@
 
    .fade-enter-active,
 .fade-leave-active {
-transition: opacity 0.3s ease, transform 0.3s ease;
+transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
 transform-origin: top center;
 }
 
