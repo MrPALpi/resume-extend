@@ -17,7 +17,6 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/main.scss';
 @import '@/assets/styles/mixin/element-show.scss';
 .portfolio{
     padding-top: 140px;

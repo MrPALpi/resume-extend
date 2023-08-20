@@ -40,7 +40,7 @@ const getDate = () =>{
 
 
 <style lang="scss" scoped>
-@import "../../assets/styles/main.scss";
+
 @import "../../assets/styles/mixin/list-item.scss";
 .career-item {
     @include list-item;
@@ -59,7 +59,7 @@ const getDate = () =>{
     &__dates{
         display: flex;
         justify-content: space-between;
-        color: $accent;
+        color: var(--accent);
         font-size: 18px;
         font-style: normal;
         font-weight: 700;

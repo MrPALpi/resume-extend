@@ -16,8 +16,6 @@
 
 
 <style lang="scss" scoped>
-@import "../../assets/styles/main.scss";
-
 .sk-cube-grid {
     z-index: 3;
   width: 140px;
@@ -28,7 +26,7 @@
 .sk-cube-grid .sk-cube {
   width: 33%;
   height: 33%;
-  background-color: $accent;
+  background-color: var(--accent);
   float: left;
   -webkit-animation: sk-cubeGridScaleDelay 1s infinite ease-in-out;
   animation: sk-cubeGridScaleDelay 1s infinite ease-in-out;

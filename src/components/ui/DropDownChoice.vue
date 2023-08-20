@@ -29,7 +29,6 @@
  </script>
  
  <style lang="scss" scoped>
- @import "../../assets/styles/main.scss";
 
   .drop-down__choice {
      position: absolute;
@@ -38,9 +37,9 @@
      padding: 10px 5px;
      width: 100%;
      border-radius: 10px;
-     border: 1px solid $accent-50;
-     background: $background;
-     color: $accent;
+     border: 1px solid var(--accent-50);
+     background: var(--background);
+     color: var(--accent);
      z-index: 2;
 
     &-scroll{

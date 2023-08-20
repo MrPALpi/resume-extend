@@ -21,6 +21,9 @@ import WelcomeSection from "../components/section/WelcomeSection.vue";
 import PortfolioSection from "../components/section/PortfolioSection.vue";
 import CarieraSection from '../components/section/CarieraSection.vue';
 import { computed } from "vue";
+import { useUserStore } from '@/stores/UserStore.js';
+import { storeToRefs } from 'pinia'; 
+
 export default {
   components: {
     WelcomeSection,
@@ -175,6 +178,3 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import "../assets/styles/main.scss";
-</style>

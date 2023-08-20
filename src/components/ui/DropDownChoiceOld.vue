@@ -62,7 +62,6 @@ const leave = (el, done) => {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/styles/main.scss";
 .drop-down__choice {
     position: absolute;
     top: 100%;
@@ -70,9 +69,9 @@ const leave = (el, done) => {
     padding: 10px 15px;
     width: 100%;
     border-radius: 10px;
-    border: 2px solid $accent-50;
-    background: $background;
-    color: $accent;
+    border: 2px solid var(--accent-50);
+    background: var(--background);
+    color: var(--accent);
     display: flex;
     flex-direction: column;
     align-items: center;

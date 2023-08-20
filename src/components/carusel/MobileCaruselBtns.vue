@@ -23,7 +23,6 @@ const next = () =>{
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/styles/main.scss";
 .mobile-carusel-btns{
     display: flex;
     gap: 10px;
@@ -32,10 +31,20 @@ const next = () =>{
     padding: 0 0 10px;
     &__btn{
         width: 40px;
-        background: $accent-10;
+        background: var(--accent-10);
         border-radius: 5px;
+        cursor: pointer;
+        transition: scale 0.2s;
         &_left{
             transform: rotate(180deg);
+        }
+        @media (hover:hover) {
+          &:hover{
+            scale: 1.05;
+          }
+      }
+        &:active{
+          scale: 0.95;
         }
     }
 }

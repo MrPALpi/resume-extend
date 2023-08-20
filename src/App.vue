@@ -40,7 +40,7 @@ export default {
 </template>
 
 <style  lang="scss" scoped>
-@import './assets/styles/main.scss';
+
 .page-enter-active,
 .page-leave-active{
   transition: opacity 0.5s ease-in-out;

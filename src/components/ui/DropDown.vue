@@ -49,10 +49,10 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/styles/main.scss";
+
 
 .drop-down {
-  color: $text;
+  color: var(--text);
   position: relative;
   // width: min-content;
 
@@ -61,7 +61,7 @@ const props = defineProps({
     justify-content: space-between;
     align-items: center;
     padding: 7px 10px;
-    border: 1px solid $accent-50;
+    border: 1px solid var(--accent-50);
     border-radius: 30px;
     background: transparent;
     min-width: 200px;
@@ -72,20 +72,20 @@ const props = defineProps({
       width: 30px;
     }
     &__placeholder {
-      color: $text;
+      color: var(--text);
     }
   }
   &__input {
     padding: 5px 10px;
     background: transparent;
-    color: $text;
-    border: 1px solid $accent-20;
+    color: var(--text);
+    border: 1px solid var(--accent-20);
     border-radius: 10px;
     outline: none;
     width: 100%;
     transition: border-color 0.3s;
     &:focus {
-      border-color: $accent-50;
+      border-color: var(--accent-50);
     }
   }
 }

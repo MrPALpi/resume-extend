@@ -9,9 +9,8 @@
 
 
 <style lang="scss" scoped>
-@import '../../assets/styles/main.scss';
 .hello-text{
-    background-color: $accent-10;
+    background-color: var(--accent-10);
     padding: 5px 10px;
     font-style: normal;
     font-weight: 700;
@@ -20,7 +19,7 @@
     border-radius: 16px;
     display: block;
     width: max-content;
-    color: $accent;
+    color: var(--accent);
     transition: 0.3s;
     position: relative;
     &__text{
@@ -30,12 +29,12 @@
     transition: box-shadow 0.3s;
     @media(hover:hover){
         &:hover{
-            box-shadow: 0 0 0 4px $accent-10;   
+            box-shadow: 0 0 0 4px var(--accent-10);   
         }
     }
     @media(hover:none){
         &:active{
-            box-shadow: 0 0 0 4px $accent-10;   
+            box-shadow: 0 0 0 4px var(--accent-10);   
         }
     }
     

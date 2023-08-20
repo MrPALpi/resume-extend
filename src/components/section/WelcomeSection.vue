@@ -38,10 +38,12 @@ import HelloText from "../ui/HelloText.vue";
 import ArrowDownload from "../icons/ArrowDownload.vue";
 import ImgBlur from "../img/ImgBlur.vue";
 import DropDown from "../ui/DropDown.vue";
+// import useSearchMatch from "../../hooks/useSearchMatch";
 import { ref, computed } from "vue";
 const props = defineProps({
   user: { type: Object, required: true },
 });
+// const {findWord, searchMatch} = useSearchMatch({"value": props.user.messengers.map});
 const inputValue = ref("");
 
 const filterChoice = computed(() => {
@@ -56,10 +58,10 @@ const filterChoice = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/main.scss";
 @import "@/assets/styles/mixin/element-show.scss";
 
 .welcome-wrap {
+  // background: $red;
   min-height: 100vh;
   padding: 150px 0 0;
   @include element-show;
@@ -96,7 +98,7 @@ const filterChoice = computed(() => {
       display: flex;
       align-items: center;
       text-decoration: none;
-      color: $accent-50;
+      color: var(--accent-50);
     }
 }
 

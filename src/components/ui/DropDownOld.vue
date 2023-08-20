@@ -63,10 +63,10 @@ const inputValue = computed({
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/styles/main.scss";
+
 
 .drop-down {
-  color: $text;
+  color: var(--text);
   position: relative;
 
   &__menu {
@@ -74,7 +74,7 @@ const inputValue = computed({
     justify-content: space-between;
     align-items: center;
     padding: 5px 10px;
-    border: 2px solid $accent-50;
+    border: 2px solid var(--accent-50);
     border-radius: 30px;
     background: transparent;
     min-width: 200px;
@@ -91,7 +91,7 @@ const inputValue = computed({
   &__input {
     padding: 5px 10px;
     background: transparent;
-    color: $text;
+    color: var(--text);
     border: none;
     outline: none;
   }

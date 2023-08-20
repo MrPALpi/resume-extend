@@ -3,22 +3,23 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+
 }
 
 * {
     scrollbar-width: thin;
-    scrollbar-color: $accent $background;
+    scrollbar-color: var(--accent) var(--background);
    ::-webkit-scrollbar {
     height: 8px;
     width: 6px;
    }
   ::-webkit-scrollbar-track {
-    background: $background;
+    background: var(--background);
   }
   ::-webkit-scrollbar-thumb {
-    background-color: $accent;
+    background-color: var(--accent);
     border-radius: 12px;
-    border: 2px solid $accent;
+    border: 2px solid var(--accent);
   }
 }
 
@@ -26,6 +27,6 @@ html, body{
     font-family: "Raleway", "Arial", sans-serif;
     overflow-x: hidden;
     overflow-y: auto;
-    background-color:$background;
+    background-color:var(--background);
     scroll-behavior: smooth;
 }

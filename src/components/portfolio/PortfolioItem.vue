@@ -21,7 +21,7 @@
         @mouseleave="removeHover"
         @touchstart="toggleHover"
         :class="{'portfolio-item-photo__img_hover':scrollImg}"
-        class="portfolio-item-photo__img portfolio-item__img"
+        class="portfolio-item-photo__img"
         :style="transitionTime"
         :src="portfolioItem.img"
         :alt="portfolioItem.name"
@@ -79,7 +79,6 @@ const props = defineProps({
 </script>
 
 <style lang="scss">
-@import "../../assets/styles/main.scss";
 @import "../../assets/styles/mixin/list-item.scss";
 
 .portfolio-item {

@@ -33,7 +33,6 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/main.scss';
 @import '@/assets/styles/mixin/element-show.scss';
 .description{
   @include element-show;

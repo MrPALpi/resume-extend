@@ -19,7 +19,6 @@
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/styles/main.scss";
 @import "../../assets/styles/mixin/title-mixin.scss";
 .about {
   width: 100%;
@@ -29,14 +28,14 @@
 .about__title {
   font-style: normal;
   font-weight: 800;
-  font-size: $title-size;
+  font-size: var(--title-size);
   line-height: 58px;
-  color: $text;
+  color: var(--text);
 
 }
 
 .about__description {
-  color: $alt-text;
+  color: var(--alt-text);
   font-style: normal;
   font-weight: 400;
   font-size: 20px;

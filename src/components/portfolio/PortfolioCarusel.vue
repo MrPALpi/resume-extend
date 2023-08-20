@@ -82,7 +82,6 @@ const transform = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/styles/variables.scss";
 .portfolio-carusel {
   &__carusel {
     display: grid;
@@ -103,7 +102,7 @@ const transform = computed(() => {
     height: 40px;
     border-radius: 100%;
     top: calc(50% - 20px);
-    background: $accent-50;
+    background: var(--accent-50);
     transition: opacity 0.3s ease 0.5s;
 
     &_left {

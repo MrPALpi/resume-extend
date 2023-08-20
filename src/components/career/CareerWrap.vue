@@ -46,7 +46,7 @@ const { windowSize } = useWindowSize();
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/main.scss';
+
 .career{
     &__wrap {
     display: flex;
