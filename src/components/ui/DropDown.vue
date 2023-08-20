@@ -1,11 +1,11 @@
 <template>
-  <div @blur="toggleChoice" ref="select" class="drop-down" tabindex="-1">
+  <div @blur="hideChoice" ref="select" class="drop-down" tabindex="-1">
     <div @mousedown="triggerChoice" class="drop-down__menu drop-down-menu">
       <span class="drop-down-menu__placeholder">Выберите</span>
       <animate-arrow class="drop-down-menu__arrow" :active="show" />
     </div>
 
-    <div @focusin="toggleChoice" @focusout="hideChoice" tabindex="-1">
+    <div @focusin="showChoice" @focusout="hideChoice" tabindex="-1">
       <drop-down-choice :show="show">
         <template #input>
           <input
@@ -30,13 +30,11 @@ const show = ref(false);
 const select = ref(null);
 const hideChoice = () => {
   show.value=false;
-  // show.value = !show.value;
 };
-const toggleChoice = () => {
-  show.value = !show.value;
+const showChoice = () => {
+  show.value = true;
 };
 const triggerChoice = () => {
-  console.log(event);
   if (show.value) {
     select.value.dispatchEvent(new Event("blur"));
   } else {
