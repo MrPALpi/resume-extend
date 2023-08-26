@@ -1,5 +1,5 @@
 <template>
-  <div @blur="hideChoiceWrap" ref="select" class="drop-down" tabindex="-1">
+  <div @blur="hideChoice" ref="select" class="drop-down" tabindex="-1">
     <div @mousedown="triggerChoice" class="drop-down__menu drop-down-menu">
       <span class="drop-down-menu__placeholder">Выберите</span>
       <animate-arrow class="drop-down-menu__arrow" :active="show" />
@@ -28,9 +28,6 @@ import AnimateArrow from "./AnimateArrow.vue";
 import DropDownChoice from "./DropDownChoice.vue";
 const show = ref(false);
 const select = ref(null);
-const hideChoiceWrap = () =>{
-  if (!show.value) setTimeout(hideChoice,100);
-}
 const hideChoice = () => {
     show.value=false
 };
@@ -41,7 +38,6 @@ const showChoice = () => {
 const triggerChoice = () => {
   if (show.value) {
     select.value.dispatchEvent(new Event("blur"));
-    hideChoice();
   } else {
     show.value = true;
   }

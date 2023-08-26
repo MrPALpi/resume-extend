@@ -1,10 +1,5 @@
 <template>
-  <div
-    ref="carusel"
-    v-on="setEvents()"
-    :class="{'mobile-carusel_mobile-scroll' : getTouchWindow()}"
-    class="mobile-carusel"
-    >
+  <div ref="carusel" v-on="setEvents()" class="mobile-carusel">
     <slot> </slot>
   </div>
 </template>
@@ -12,129 +7,100 @@
 <script setup>
 import { ref } from "vue";
 const props = defineProps({
-  slip: {type:Number, required: false, default: 800},
-  duration: {type:Number, required:false, default: 300},
-})
+  slip: { type: Number, required: false, default: 800 },
+  duration: { type: Number, required: false, default: 300 },
+});
 
 const carusel = ref(null);
 
-const getTouchWindow = ()=>{
-  return 'ontouchstart' in window;
-}
-
-const slidePosition = new Proxy({ value: 0 }, {
-  set(target, prop, val) {
-    if (isNaN(val)) {
+const slidePosition = new Proxy(
+  { value: 0 },
+  {
+    set(target, prop, val) {
+      if (isNaN(val)) {
+        return target[prop];
+      }
+      if (-val < 0) {
+        target[prop] = 0;
+        console.log("is 0", target[prop], val);
+        return true;
+      } else if (-val > carusel.value.scrollWidth) {
+        target[prop] = -carusel.value.scrollWidth;
+        console.log("is else if", target[prop], val);
+        return true;
+      } else {
+        target[prop] = val;
+        console.log("is else", target[prop], val);
+        return true;
+      }
+    },
+    get(target, prop) {
       return target[prop];
-    }
-    if (val > 20) {
-      target[prop] = 20;
-      return true
-    } else if (-val > carusel.value.scrollWidth - 280) {
-      target[prop] = -carusel.value.scrollWidth + 280;
-      return true
-    } else {
-      target[prop] = val;
-      return true
-    }
-  },
-  get(target, prop) {
-    return target[prop];
-  },
-});
+    },
+  }
+);
 
-let slideStart, slideEnd = 0;
+let slideStart,
+  slideEnd = 0;
 let swipeWidth, time;
 let pointerDown = false;
 
-const setEvents = ()=>{
-  if(!(getTouchWindow())){
+const setEvents = () => {
+  if (!("ontouchstart" in window)) {
     return {
-      mousedown:swipeStart,
-      mousemove:touchMoveEvent,
-      mouseup:swipeEnd,
-      mouseleave:mouseLeaveEvent
-    }
+      mousedown: swipeStart,
+      mousemove: touchMoveEvent,
+      mouseup: swipeEnd,
+      mouseleave: mouseLeaveEvent,
+    };
   }
-}
-const setStyleCarusel = (transform = 0, time = 0) => {
-  carusel.value.style = `transition-duration: ${time}ms; transform: translateX(${transform}px)`;
 };
-const getSwipeWidth = ()=>{
-  if(!swipeWidth){
-    swipeWidth = carusel.value.scrollWidth / carusel.value.childElementCount || 1;
+const setScrollCarusel = (scroll) => {
+  carusel.value.scrollTo({
+    left: scroll,
+  });
+};
+const getSwipeWidth = () => {
+  if (!swipeWidth) {
+    swipeWidth =
+      Math.ceil(carusel.value.scrollWidth / carusel.value.childElementCount);
   }
   return swipeWidth;
-}
-const prev = () =>{
-  slidePosition.value += getSwipeWidth();
-  console.log(getSwipeWidth());
-  if (getTouchWindow){
-   
-    carusel.value.scrollTo({
-        top: 0,
-        left: -slidePosition.value,
-        behavior: 'smooth'
-      });
-  }
-  else{
-    setStyleCarusel(slidePosition.value, props.duration);
-  }
-  
-}
-const next = () =>{
-  slidePosition.value -= getSwipeWidth();
-  if (getTouchWindow){
-   
-    carusel.value.scrollTo({
-        top: 0,
-        left: -slidePosition.value,
-        behavior: 'smooth'
-      });
-  }
-  else{
-    setStyleCarusel(slidePosition.value, props.duration);
-  }
-}
+};
+const prev = () => {
+  slidePosition.value = -(carusel.value.scrollLeft - getSwipeWidth());
+  setScrollCarusel(-slidePosition.value);
+};
+const next = () => {
+  console.log(carusel.value.scrollLeft + getSwipeWidth());
+  slidePosition.value = - (carusel.value.scrollLeft + getSwipeWidth());
+  setScrollCarusel(-slidePosition.value);
+
+};
 
 defineExpose({
   prev,
-  next
-})
-
-const getPositionX = (target) => {
-  // if (!!target.changedTouches) return target.changedTouches[0].clientX;
-  return target.clientX;
-};
+  next,
+});
 
 const swipeStart = (event) => {
-  slideStart = slideEnd = getPositionX(event);
+  event.preventDefault();
+  slideStart = slideEnd = event.clientX;
   time = event.timeStamp;
-
   pointerDown = true;
 };
 const touchMoveEvent = (event) => {
   if (!pointerDown) return;
-  slideEnd = slideStart - getPositionX(event);
-  slideStart = getPositionX(event);
+  slideEnd = slideStart - event.clientX;
+  slideStart = event.clientX;
   slidePosition.value = slidePosition.value - slideEnd;
-
-  setStyleCarusel(slidePosition.value);
+  setScrollCarusel(-slidePosition.value);
 };
 const swipeEnd = (event) => {
   pointerDown = false;
   time = event.timeStamp - time;
   if (slideStart === slideEnd) return;
-  const speed = slideEnd / time;
-  const speedTime = Math.abs(speed) * 1000;
-  slidePosition.value = slidePosition.value - props.slip * speed;
-  setStyleCarusel(slidePosition.value, speedTime);
-  setTimeout(
-    () => {
-      setStyleCarusel(slidePosition.value);
-    },
-    speedTime >= 1000 ? 1000 : speedTime
-  );
+  setScrollCarusel(-slidePosition.value);
 };
 
 const mouseLeaveEvent = () => (pointerDown = false);
@@ -142,16 +108,19 @@ const mouseLeaveEvent = () => (pointerDown = false);
   
 <style lang="scss" scoped>
 .mobile-carusel {
-    display: flex;
-    flex-wrap: nowrap;
-    column-gap: 16px;
-    // transition-timing-function: ease-out;
-    transition-timing-function: cubic-bezier(.21,.56,.56,1);
-    // width: min-content;
-    &_mobile-scroll{
-      overflow-x: scroll;
-      
-    }
-
+  display: flex;
+  flex-wrap: nowrap;
+  column-gap: 16px;
+  padding: 30px 0 20px;
+  width: 100%;
+  cursor: grab;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
   }
+}
 </style>
