@@ -1,15 +1,10 @@
 <template>
   <div
     ref="carusel"
-    @touchstart="getTouchInfo(true, swipeStart, $event)"
-    @touchmove.prevent="getTouchInfo(true, touchMoveEvent, $event)"
-    @touchend="getTouchInfo(true, swipeEnd, $event)"
-    @mousedown.prevent="getTouchInfo(false, swipeStart, $event)"
-    @mousemove.prevent="getTouchInfo(false, touchMoveEvent, $event)"
-    @mouseup.prevent="getTouchInfo(false, swipeEnd, $event)"
-    @mouseleave="getTouchInfo(false, mouseLeaveEvent, $event)"
+    v-on="setEvents()"
+    :class="{'mobile-carusel_mobile-scroll' : getTouchWindow()}"
     class="mobile-carusel"
-  >
+    >
     <slot> </slot>
   </div>
 </template>
@@ -22,11 +17,12 @@ const props = defineProps({
 })
 
 const carusel = ref(null);
-const targetSlide = { value: 0 };
 
+const getTouchWindow = ()=>{
+  return 'ontouchstart' in window;
+}
 
-
-const slidePosition = new Proxy(targetSlide, {
+const slidePosition = new Proxy({ value: 0 }, {
   set(target, prop, val) {
     if (isNaN(val)) {
       return target[prop];
@@ -47,33 +43,58 @@ const slidePosition = new Proxy(targetSlide, {
   },
 });
 
-let slideStart,
-  slideEnd = 0;
-let swipeWidth;
-let time;
+let slideStart, slideEnd = 0;
+let swipeWidth, time;
 let pointerDown = false;
 
-const getTouchInfo = (status, callBack, event) => {
-  if ("ontouchstart" in window === status) {
-    callBack(event);
+const setEvents = ()=>{
+  if(!(getTouchWindow())){
+    return {
+      mousedown:swipeStart,
+      mousemove:touchMoveEvent,
+      mouseup:swipeEnd,
+      mouseleave:mouseLeaveEvent
+    }
   }
-};
+}
 const setStyleCarusel = (transform = 0, time = 0) => {
   carusel.value.style = `transition-duration: ${time}ms; transform: translateX(${transform}px)`;
 };
 const getSwipeWidth = ()=>{
   if(!swipeWidth){
-    swipeWidth = carusel.value.clientWidth / carusel.value.childElementCount || 1;
+    swipeWidth = carusel.value.scrollWidth / carusel.value.childElementCount || 1;
   }
   return swipeWidth;
 }
 const prev = () =>{
   slidePosition.value += getSwipeWidth();
-  setStyleCarusel(slidePosition.value, props.duration);
+  console.log(getSwipeWidth());
+  if (getTouchWindow){
+   
+    carusel.value.scrollTo({
+        top: 0,
+        left: -slidePosition.value,
+        behavior: 'smooth'
+      });
+  }
+  else{
+    setStyleCarusel(slidePosition.value, props.duration);
+  }
+  
 }
 const next = () =>{
   slidePosition.value -= getSwipeWidth();
-  setStyleCarusel(slidePosition.value, props.duration);
+  if (getTouchWindow){
+   
+    carusel.value.scrollTo({
+        top: 0,
+        left: -slidePosition.value,
+        behavior: 'smooth'
+      });
+  }
+  else{
+    setStyleCarusel(slidePosition.value, props.duration);
+  }
 }
 
 defineExpose({
@@ -82,7 +103,7 @@ defineExpose({
 })
 
 const getPositionX = (target) => {
-  if (!!target.changedTouches) return target.changedTouches[0].clientX;
+  // if (!!target.changedTouches) return target.changedTouches[0].clientX;
   return target.clientX;
 };
 
@@ -126,6 +147,11 @@ const mouseLeaveEvent = () => (pointerDown = false);
     column-gap: 16px;
     // transition-timing-function: ease-out;
     transition-timing-function: cubic-bezier(.21,.56,.56,1);
-    width: min-content;
+    // width: min-content;
+    &_mobile-scroll{
+      overflow-x: scroll;
+      
+    }
+
   }
 </style>

@@ -75,11 +75,16 @@ const { windowSize } = useWindowSize();
       flex-direction: column;
       margin-top: 24px;
     }
-     .career-wrap__title{
-      font-size: 24px;
-      margin-bottom: 30px;
-      text-align: left;
-     } 
+     .career-wrap{
+      &__title{
+        font-size: 24px;
+        margin-bottom: 30px;
+        text-align: left;
+      }
+      &__item{
+        max-width: unset;
+      } 
+    }
   }
 }
 </style>

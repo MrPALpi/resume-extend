@@ -53,9 +53,7 @@ const getDate = () =>{
             max-height: 40px;
         }
     }
-    // @media($media-phone){
-    //     max-width: 300px;
-    // }
+
     &__dates{
         display: flex;
         justify-content: space-between;
