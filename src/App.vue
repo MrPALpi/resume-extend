@@ -13,6 +13,8 @@ export default {
 <router-link to="/pattern">pattern</router-link>
   <br>
 <router-link to="/">home</router-link>
+<br>
+<router-link to="/@mrPALpe">my page</router-link>
 </div>
 
 
@@ -23,9 +25,9 @@ export default {
         <Suspense>
           <template #default>
             <Transition mode="out-in" name="page-slide">
-              <div :key="route.name" class="root">
-                <component :is="Component"  />
-              </div>
+              <!-- <div :key="route.name" class="root"> -->
+                <component :is="Component"  class="root" />
+              <!-- </div> -->
             </Transition>
             </template>
           <template #fallback>
@@ -68,16 +70,16 @@ export default {
 }
 
 .root{
-  padding: 0 140px 100px;
+  padding: 0 140px 0px;
   width: 100%;
   max-width: 1920px;
   margin: 0 auto;
-  overflow-x: hidden;
+  // overflow-x: hidden;
 }
 
 @media (max-width: 1100px) {
   .root {
-    padding: 0 24px 100px;
+    padding: 0 24px 0px;
   }
 }
 </style>

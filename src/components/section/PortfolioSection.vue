@@ -19,6 +19,7 @@
 <style lang="scss" scoped>
 @import '@/assets/styles/mixin/element-show.scss';
 .portfolio{
+    overflow: hidden;
     padding-top: 140px;
     @include element-show;
     @media ($media-laptop) {

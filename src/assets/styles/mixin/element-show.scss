@@ -1,9 +1,10 @@
 @mixin element-show{
     transition: transform 0.3s ease, opacity 0.3s ease-in;
     opacity: 0;
-    transform: translateX(if(random() > 0.5, 20%, -20%));
+    transform: translateX(if(random() > 0.5, 10%, -10%));
+    // transform: translateY(100px);
     &_active{
-        transform: translate(0);
+        transform: translateX(0);
         opacity: 1;
     }
 }

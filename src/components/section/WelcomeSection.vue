@@ -23,7 +23,7 @@
       <div class="welcome__links">
         <a href="" class="welcome__links-link">Моё резюме <arrow-download /></a>
         <drop-down v-model:inputValue="inputValue">
-          <a v-for="mes in filterChoice" :key="mes" :href="mes.link">
+          <a class="welcome__links-link" v-for="mes in filterChoice" :key="mes" :href="mes.link" target="_blank">
             {{ mes.type }}
           </a>
         </drop-down>

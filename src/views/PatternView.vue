@@ -1,4 +1,7 @@
 <template>
+  <div class="resume">
+
+  
   <!-- приветсвенная секция -->
   <welcome-section :user="userWelcome"  v-observe="{class:'welcome-wrap'}"/>
   <!-- /приветсвенная секция -->
@@ -13,6 +16,7 @@
   <!-- Карьера -->
   <cariera-section :career="user.career" :achievements="user.achievements" v-observe="{class:'career'}"/>
   <!-- /Карьера -->
+</div>
 </template>
 
 <script>
@@ -177,4 +181,8 @@ export default {
   },
 };
 </script>
-
+<style lang="scss" scoped>
+.resume{
+  overflow: hidden;
+}
+</style>

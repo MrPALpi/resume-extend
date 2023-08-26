@@ -1,9 +1,9 @@
 <template>
   <div
     ref="carusel"
-    @touchstart.prevent="getTouchInfo(true, swipeStart, $event)"
+    @touchstart="getTouchInfo(true, swipeStart, $event)"
     @touchmove.prevent="getTouchInfo(true, touchMoveEvent, $event)"
-    @touchend.prevent="getTouchInfo(true, swipeEnd, $event)"
+    @touchend="getTouchInfo(true, swipeEnd, $event)"
     @mousedown.prevent="getTouchInfo(false, swipeStart, $event)"
     @mousemove.prevent="getTouchInfo(false, touchMoveEvent, $event)"
     @mouseup.prevent="getTouchInfo(false, swipeEnd, $event)"

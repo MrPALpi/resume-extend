@@ -12,7 +12,13 @@ const router = createRouter({
     {
       path: '/pattern',
       name: 'pattern',
+      // component: () => import('../views/PatternView.vue')
       component: () => import('../views/PatternView.vue')
+    },
+    {
+      path: '/@:name',
+      name: 'account',
+      component: () => import('../views/AccountView.vue')
     }
   ]
 })
