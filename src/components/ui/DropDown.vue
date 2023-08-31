@@ -1,24 +1,23 @@
 <template>
   <div @blur="hideChoice" ref="select" class="drop-down" tabindex="-1">
-    <div @mousedown="triggerChoice" class="drop-down__menu drop-down-menu">
+    <div @click="toggleChoice" class="drop-down__menu drop-down-menu">
       <span class="drop-down-menu__placeholder">Выберите</span>
       <animate-arrow class="drop-down-menu__arrow" :active="show" />
     </div>
-
-    <div @focusin="showChoice" @focusout="hideChoice" tabindex="-1">
-      <drop-down-choice :show="show">
-        <template #input>
-          <input
-            type="text"
-            @input="$emit('update:inputValue', $event.target.value)"
-            :value="props.inputValue"
-            placeholder="Поиск..."
-            class="drop-down__input"
-          />
-        </template>
-        <slot></slot>
-      </drop-down-choice>
-    </div>
+    <drop-down-choice :show="show">
+      <template #input>
+        <input
+          ref="input"
+          @blur="hideChoiceInput"
+          @input="$emit('update:inputValue', $event.target.value)"
+          :value="props.inputValue"
+          type="text"
+          placeholder="Поиск..."
+          class="drop-down__input"
+        />
+      </template>
+      <slot :input="props.inputValue"></slot>
+    </drop-down-choice>
   </div>
 </template>
 
@@ -26,30 +25,38 @@
 import { ref } from "vue";
 import AnimateArrow from "./AnimateArrow.vue";
 import DropDownChoice from "./DropDownChoice.vue";
-const show = ref(false);
-const select = ref(null);
-const hideChoice = () => {
-    show.value=false
-};
-const showChoice = () => {
-  show.value = true;
- 
-};
-const triggerChoice = () => {
-  if (show.value) {
-    select.value.dispatchEvent(new Event("blur"));
-  } else {
-    show.value = true;
-  }
-};
 const props = defineProps({
   inputValue: { type: String, required: false },
 });
+
+const show = ref(false);
+const select = ref(null);
+const input = ref(null);
+
+const hideChoice = (event) => {
+  const childInputEl = input.value ?? {};
+  if (Object.is(event.relatedTarget, childInputEl)) {
+    return;
+  }
+  show.value = false;
+};
+
+const toggleChoice = () => {
+  select.value.focus();
+  show.value = !show.value;
+};
+
+const hideChoiceInput = (event) => {
+  if (Object.is(event.relatedTarget, select.value)) {
+    return;
+  }
+  show.value = false;
+};
+
+
 </script>
 
 <style lang="scss" scoped>
-
-
 .drop-down {
   color: var(--text);
   position: relative;
