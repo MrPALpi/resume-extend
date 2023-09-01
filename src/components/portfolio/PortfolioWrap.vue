@@ -7,11 +7,12 @@
   />
   <div v-else>
   <mobile-carusel-btns :objFunction="mobileCarusel"/>
-  <mobile-carusel  ref="mobileCarusel">
+  <mobile-carusel  ref="mobileCarusel" :round="true">
     <portfolio-item
       v-for="item in portfolioList"
       :key="item"
       :portfolioItem="item"
+      
   /></mobile-carusel>
   </div>
   
