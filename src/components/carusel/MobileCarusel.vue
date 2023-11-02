@@ -5,113 +5,115 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 const props = defineProps({
-  round: { type: Boolean, required: false, default: false }
-})
+  round: { type: Boolean, required: false, default: false },
+});
 
-const carusel = ref(null)
+const carusel = ref(null);
 
 const slidePosition = new Proxy(
   { value: 0 },
   {
-    set (target, prop, val) {
+    set(target, prop, val) {
       if (isNaN(val)) {
-        return target[prop]
+        return target[prop];
       } else {
-        const value = Math.max(-getCaruselWidthFixed(), Math.min(val, 0))
-        target[prop] = value
-        return true
+        const value = Math.max(-getCaruselWidthFixed(), Math.min(val, 0));
+        target[prop] = value;
+        return true;
       }
     },
-    get (target, prop) {
-      return target[prop]
-    }
+    get(target, prop) {
+      return target[prop];
+    },
   }
-)
+);
 
-let slideStart
-let slideEnd = 0
-let slideWidth, time, caruselWidth
-let pointerDown = false
+let slideStart;
+let slideEnd = 0;
+let slideWidth, time, caruselWidth;
+let pointerDown = false;
 
 const setEvents = () => {
-  if (!('ontouchstart' in window)) {
+  if (!("ontouchstart" in window)) {
     return {
       mousedown: swipeStart,
       mousemove: touchMoveEvent,
       mouseup: swipeEnd,
-      mouseleave: swipeEnd
-    }
+      mouseleave: swipeEnd,
+    };
   }
-}
+};
 
-const setScrollCarusel = (scroll, behavior = 'smooth') => {
+const setScrollCarusel = (scroll, behavior = "smooth") => {
   carusel.value.scrollTo({
     left: scroll,
-    behavior
-  })
-}
+    behavior,
+  });
+};
 const getslideWidth = () => {
   if (!slideWidth) {
-    slideWidth =
-      Math.ceil(carusel.value.scrollWidth / carusel.value.childElementCount)
+    slideWidth = Math.ceil(
+      carusel.value.scrollWidth / carusel.value.childElementCount
+    );
   }
-  return slideWidth
-}
+  return slideWidth;
+};
 
 const getCaruselWidthFixed = () => {
   if (!caruselWidth) {
-    caruselWidth = carusel.value.scrollWidth - getslideWidth()
+    caruselWidth = carusel.value.scrollWidth - getslideWidth();
   }
-  return caruselWidth
-}
+  return caruselWidth;
+};
 const prev = () => {
-  btnScroll(-1)
-}
+  btnScroll(-1);
+};
 const next = () => {
-  btnScroll(1)
-}
+  btnScroll(1);
+};
 const btnScroll = (sign) => {
-  const slideWidth = getslideWidth()
-  const val = -(carusel.value.scrollLeft + sign * slideWidth)
-  slidePosition.value = Math.round(val / slideWidth) * slideWidth
-  setScrollCarusel(-slidePosition.value)
-}
+  const slideWidth = getslideWidth();
+  const val = -(carusel.value.scrollLeft + sign * slideWidth);
+  slidePosition.value = Math.round(val / slideWidth) * slideWidth;
+  setScrollCarusel(-slidePosition.value);
+};
 
 defineExpose({
   prev,
-  next
-})
+  next,
+});
 
 const swipeStart = (event) => {
-  event.preventDefault()
-  slideStart = slideEnd = event.clientX
-  time = event.timeStamp
-  pointerDown = true
-}
+  event.preventDefault();
+  slideStart = slideEnd = event.clientX;
+  time = event.timeStamp;
+  pointerDown = true;
+};
 const touchMoveEvent = (event) => {
-  if (!pointerDown) return
-  slideEnd = slideStart - event.clientX
-  slideStart = event.clientX
-  slidePosition.value = slidePosition.value - slideEnd
-  setScrollCarusel(-slidePosition.value, 'auto')
-}
+  if (!pointerDown) return;
+  slideEnd = slideStart - event.clientX;
+  slideStart = event.clientX;
+  slidePosition.value = slidePosition.value - slideEnd;
+  setScrollCarusel(-slidePosition.value, "auto");
+};
 const swipeEnd = (event) => {
-  pointerDown = false
-  if (slideStart === slideEnd) return
-  time = event.timeStamp - time
-  const value = slidePosition.value + (slideEnd / Math.abs(slideEnd)) * (slidePosition.value / time) * 25
+  pointerDown = false;
+  if (slideStart === slideEnd) return;
+  time = event.timeStamp - time;
+  const value =
+    slidePosition.value +
+    (slideEnd / Math.abs(slideEnd)) * (slidePosition.value / time) * 25;
   if (props.round) {
-    const slideWidth = getslideWidth()
-    slidePosition.value = Math.round(value / slideWidth) * slideWidth
+    const slideWidth = getslideWidth();
+    slidePosition.value = Math.round(value / slideWidth) * slideWidth;
   } else {
-    slidePosition.value = value
+    slidePosition.value = value;
   }
 
-  setScrollCarusel(-slidePosition.value)
-}
-
+  setScrollCarusel(-slidePosition.value);
+};
 </script>
 
 <style lang="scss" scoped>

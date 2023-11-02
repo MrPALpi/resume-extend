@@ -1,5 +1,4 @@
 <template>
-  <input type="hidden" />
   <Transition name="fade">
     <div ref="choice" v-show="show" class="drop-down__choice">
       <slot name="input"></slot>
